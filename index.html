@@ -1,200 +1,382 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <meta name="google-site-verification" content="enLYJQOo7BmgnqtoSbjF3_6As8xLNBV3jvHWcMC1qfg" />
     <title>Mes Réseaux Sociaux</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-        
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
         body {
-            font-family: 'Poppins', sans-serif;
+            font-family: "Poppins", sans-serif;
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
         }
-        
+
+        /* Cartes sociales améliorées */
         .social-card {
-            transition: all 0.3s ease;
-            transform: translateY(0);
+            border: 2px solid transparent;
+            border-image: linear-gradient(45deg, #7f00ff, #e100ff) 1;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
+            transition: transform 0.3s ease, box-shadow 0.3s ease,
+                border-color 0.3s ease;
+            outline-offset: 4px;
+            animation: fadeSlideUp 0.6s ease forwards;
+            cursor: pointer;
         }
-        
-        .social-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        .social-card:hover,
+        .social-card:focus-within {
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 12px 30px rgba(127, 0, 255, 0.3);
+            border-color: #7f00ff;
         }
-        
-        .pulse {
-            animation: pulse 2s infinite;
+        .social-card:focus-visible {
+            outline: 3px solid #7f00ff;
         }
-        
-        @keyframes pulse {
+
+        /* Animation d’entrée */
+        @keyframes fadeSlideUp {
             0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
+                opacity: 0;
+                transform: translateY(20px);
             }
             100% {
-                transform: scale(1);
+                opacity: 1;
+                transform: translateY(0);
             }
         }
-        
+
+        /* Boutons */
+        button {
+            box-shadow: 0 4px 15px rgba(127, 0, 255, 0.2);
+            font-weight: 600;
+        }
+        button:hover {
+            box-shadow: 0 6px 25px rgba(127, 0, 255, 0.4);
+        }
+
+        /* Icônes avec effet au survol */
+        .social-card i {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+        .social-card:hover i {
+            transform: rotate(10deg) scale(1.1);
+            color: #7f00ff !important;
+        }
+
+        /* Animation flottante */
         .floating {
             animation: floating 3s ease-in-out infinite;
         }
-        
         @keyframes floating {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-8px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        /* Modale */
+        #linksModal {
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        #linksModal .modal-content {
+            animation: zoomFadeIn 0.4s ease forwards;
+            outline: none;
+        }
+        @keyframes zoomFadeIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Footer */
+        footer {
+            font-size: 0.85rem;
+            color: #999;
+            margin-top: 3rem;
+        }
+        footer img {
+            width: 32px;
+            height: 32px;
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center py-12 px-4">
-    <div class="max-w-4xl w-full mx-auto text-center">
+<body class="flex flex-col items-center justify-center py-8 px-2 sm:px-4">
+    <div class="w-full max-w-5xl mx-auto text-center">
         <!-- Header -->
-        <div class="mb-12">
-            <div class="w-32 h-32 mx-auto rounded-full overflow-hidden border-4 border-white shadow-lg mb-6">
-                <img src=https://www.japanfm.fr/wp-content/uploads/2024/03/luffy-chapeau-tenu-scaled.jpg
-                     alt="Photo de profil" class="w-full h-full object-cover">
+        <div class="mb-10">
+            <div
+                class="w-40 h-40 sm:w-48 sm:h-48 mx-auto rounded-full overflow-hidden border-4 border-white shadow-lg mb-4"
+            >
+                <img
+                    src="https://www.japanfm.fr/wp-content/uploads/2024/03/luffy-chapeau-tenu-scaled.jpg"
+                    alt="Profile"
+                    class="w-full h-full object-cover"
+                />
             </div>
-            <h1 class="text-4xl font-bold text-gray-800 mb-2">Rejoignez-moi</h1>
-            <p class="text-lg text-gray-600 max-w-lg mx-auto">Suivez-moi sur mes différents réseaux sociaux pour ne rien manquer !</p>
+            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-1">
+                Rejoignez-moi
+            </h1>
+            <p
+                class="text-base sm:text-lg text-gray-600 max-w-md mx-auto italic"
+            >
+                Suivez-moi sur mes différents réseaux sociaux pour ne rien manquer
+                !
+            </p>
         </div>
-        
+
         <!-- Social Links -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6 mb-12">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
             <!-- Facebook -->
-            <div class="social-card bg-white rounded-xl p-6 shadow-md cursor-pointer pulse" 
-                 onclick="redirectTo('facebook')">
-                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center">
-                    <i class="fab fa-facebook-f text-blue-600 text-2xl"></i>
+            <div
+                tabindex="0"
+                aria-label="Facebook"
+                class="social-card bg-white rounded-2xl p-6 shadow-md pulse outline-none"
+                onclick="redirectTo('facebook')"
+            >
+                <div
+                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center"
+                >
+                    <i class="fab fa-facebook-f text-blue-600 text-3xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold text-gray-800 mb-2">Facebook</h3>
-                <p class="text-gray-600 mb-4">Suivez mes actualités</p>
-                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                <p class="text-gray-600 mb-5">Suivez mes actualités</p>
+                <button
+                    class="w-full px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                >
                     Suivre
                 </button>
             </div>
-            
+
             <!-- TikTok -->
-            <div class="social-card bg-white rounded-xl p-6 shadow-md cursor-pointer pulse" 
-                 onclick="redirectTo('tiktok')">
-                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-pink-100 flex items-center justify-center">
-                    <i class="fab fa-tiktok text-black text-2xl"></i>
+            <div
+                tabindex="0"
+                aria-label="TikTok"
+                class="social-card bg-white rounded-2xl p-6 shadow-md pulse outline-none"
+                onclick="redirectTo('tiktok')"
+            >
+                <div
+                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-pink-100 flex items-center justify-center"
+                >
+                    <i class="fab fa-tiktok text-black text-3xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold text-gray-800 mb-2">TikTok</h3>
-                <p class="text-gray-600 mb-4">Découvrez mes vidéos</p>
-                <button class="px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition">
+                <p class="text-gray-600 mb-5">Découvrez mes vidéos</p>
+                <button
+                    class="w-full px-5 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+                >
                     Suivre
                 </button>
             </div>
-            
+
             <!-- Snapchat -->
-            <div class="social-card bg-white rounded-xl p-6 shadow-md cursor-pointer pulse" 
-                 onclick="redirectTo('snapchat')">
-                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-yellow-100 flex items-center justify-center">
-                    <i class="fab fa-snapchat-ghost text-yellow-500 text-2xl"></i>
+            <div
+                tabindex="0"
+                aria-label="Snapchat"
+                class="social-card bg-white rounded-2xl p-6 shadow-md pulse outline-none"
+                onclick="redirectTo('snapchat')"
+            >
+                <div
+                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-yellow-100 flex items-center justify-center"
+                >
+                    <i class="fab fa-snapchat-ghost text-yellow-500 text-3xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold text-gray-800 mb-2">Snapchat</h3>
-                <p class="text-gray-600 mb-4">Mes moments du quotidien</p>
-                <button class="px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition">
+                <p class="text-gray-600 mb-5">Mes moments du quotidien</p>
+                <button
+                    class="w-full px-5 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition"
+                >
                     Ajouter
                 </button>
             </div>
-            
+
             <!-- Instagram -->
-            <div class="social-card bg-white rounded-xl p-6 shadow-md cursor-pointer pulse" 
-                 onclick="redirectTo('instagram')">
-                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 flex items-center justify-center">
-                    <i class="fab fa-instagram text-white text-2xl"></i>
+            <div
+                tabindex="0"
+                aria-label="Instagram"
+                class="social-card bg-white rounded-2xl p-6 shadow-md pulse outline-none"
+                onclick="redirectTo('instagram')"
+            >
+                <div
+                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 flex items-center justify-center"
+                >
+                    <i class="fab fa-instagram text-white text-3xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold text-gray-800 mb-2">Instagram</h3>
-                <p class="text-gray-600 mb-4">Voir mes photos</p>
-                <button class="px-4 py-2 bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white rounded-lg hover:opacity-90 transition">
+                <p class="text-gray-600 mb-5">Voir mes photos</p>
+                <button
+                    class="w-full px-5 py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white rounded-lg hover:opacity-90 transition"
+                >
                     Suivre
                 </button>
             </div>
-            
+
             <!-- WhatsApp -->
-            <div class="social-card bg-white rounded-xl p-6 shadow-md cursor-pointer pulse" 
-                 onclick="redirectTo('whatsapp')">
-                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center">
-                    <i class="fab fa-whatsapp text-green-600 text-2xl"></i>
+            <div
+                tabindex="0"
+                aria-label="WhatsApp"
+                class="social-card bg-white rounded-2xl p-6 shadow-md pulse outline-none"
+                onclick="redirectTo('whatsapp')"
+            >
+                <div
+                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center"
+                >
+                    <i class="fab fa-whatsapp text-green-600 text-3xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold text-gray-800 mb-2">WhatsApp</h3>
-                <p class="text-gray-600 mb-4">Contactez-moi directement</p>
-                <button class="px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition">
+                <p class="text-gray-600 mb-5">Contactez-moi directement</p>
+                <button
+                    class="w-full px-5 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
+                >
                     Envoyer un message
                 </button>
             </div>
-            
+
             <!-- YouTube -->
-            <div class="social-card bg-white rounded-xl p-6 shadow-md cursor-pointer pulse" 
-                 onclick="redirectTo('youtube')">
-                <div class="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center">
-                    <i class="fab fa-youtube text-red-600 text-2xl"></i>
+            <div
+                tabindex="0"
+                aria-label="YouTube"
+                class="social-card bg-white rounded-2xl p-6 shadow-md pulse outline-none"
+                onclick="redirectTo('youtube')"
+            >
+                <div
+                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center"
+                >
+                    <i class="fab fa-youtube text-red-600 text-3xl"></i>
                 </div>
                 <h3 class="text-xl font-semibold text-gray-800 mb-2">YouTube</h3>
-                <p class="text-gray-600 mb-4">Regardez mes vidéos</p>
-                <button class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                <p class="text-gray-600 mb-5">Regardez mes vidéos</p>
+                <button
+                    class="w-full px-5 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+                >
                     S'abonner
                 </button>
             </div>
         </div>
-        
+
         <!-- Floating CTA -->
-        <div class="bg-white rounded-xl shadow-lg p-6 max-w-2xl mx-auto floating">
-            <h2 class="text-2xl font-bold text-gray-800 mb-4">Vous ne savez pas par où commencer ?</h2>
-            <p class="text-gray-600 mb-6">Cliquez simplement sur l'une des plateformes ci-dessus pour être redirigé vers mon profil. À très vite !</p>
-            <button onclick="showAllLinks()" class="px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition font-medium">
+        <div
+            class="bg-white rounded-2xl shadow-lg p-6 sm:p-8 max-w-xl mx-auto floating"
+        >
+            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-3">
+                Vous ne savez pas par où commencer ?
+            </h2>
+            <p class="text-gray-600 mb-5">
+                Cliquez simplement sur l'une des plateformes ci-dessus pour être
+                redirigé vers mon profil. À très vite !
+            </p>
+            <button
+                onclick="showAllLinks()"
+                class="px-5 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition font-semibold"
+            >
                 Voir tous les liens
             </button>
         </div>
     </div>
-    
+
     <!-- Modal -->
-    <div id="linksModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50 px-4">
-        <div class="bg-white rounded-xl p-8 max-w-md w-full relative">
-            <button onclick="closeModal()" class="absolute top-4 right-4 text-gray-500 hover:text-gray-700">
+    <div
+        id="linksModal"
+        class="fixed inset-0 flex items-center justify-center z-50 hidden px-2"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="modalTitle"
+        tabindex="-1"
+    >
+        <div
+            class="modal-content bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full relative shadow-lg outline-none"
+            tabindex="0"
+        >
+            <button
+                onclick="closeModal()"
+                aria-label="Fermer"
+                class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:outline-none"
+            >
                 <i class="fas fa-times text-xl"></i>
             </button>
-            <h3 class="text-2xl font-bold text-gray-800 mb-6">Tous mes liens</h3>
-            <div class="space-y-4">
-                <div class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer" onclick="redirectTo('facebook')">
-                    <div class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4">
+            <h3
+                id="modalTitle"
+                class="text-xl sm:text-2xl font-bold text-gray-800 mb-5"
+            >
+                Tous mes liens
+            </h3>
+            <div class="space-y-3">
+                <div
+                    class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
+                    onclick="redirectTo('facebook')"
+                >
+                    <div
+                        class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4"
+                    >
                         <i class="fab fa-facebook-f text-blue-600"></i>
                     </div>
                     <span class="font-medium">Facebook</span>
                 </div>
-                <div class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer" onclick="redirectTo('tiktok')">
-                    <div class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center mr-4">
+                <div
+                    class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
+                    onclick="redirectTo('tiktok')"
+                >
+                    <div
+                        class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center mr-4"
+                    >
                         <i class="fab fa-tiktok text-black"></i>
                     </div>
                     <span class="font-medium">TikTok</span>
                 </div>
-                <div class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer" onclick="redirectTo('snapchat')">
-                    <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-4">
+                <div
+                    class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
+                    onclick="redirectTo('snapchat')"
+                >
+                    <div
+                        class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-4"
+                    >
                         <i class="fab fa-snapchat-ghost text-yellow-500"></i>
                     </div>
                     <span class="font-medium">Snapchat</span>
                 </div>
-                <div class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer" onclick="redirectTo('instagram')">
-                    <div class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 flex items-center justify-center mr-4">
+                <div
+                    class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
+                    onclick="redirectTo('instagram')"
+                >
+                    <div
+                        class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 flex items-center justify-center mr-4"
+                    >
                         <i class="fab fa-instagram text-white"></i>
                     </div>
                     <span class="font-medium">Instagram</span>
                 </div>
-                <div class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer" onclick="redirectTo('whatsapp')">
-                    <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                <div
+                    class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
+                    onclick="redirectTo('whatsapp')"
+                >
+                    <div
+                        class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4"
+                    >
                         <i class="fab fa-whatsapp text-green-600"></i>
                     </div>
                     <span class="font-medium">WhatsApp</span>
                 </div>
-                <div class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer" onclick="redirectTo('youtube')">
-                    <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-4">
+                <div
+                    class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
+                    onclick="redirectTo('youtube')"
+                >
+                    <div
+                        class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-4"
+                    >
                         <i class="fab fa-youtube text-red-600"></i>
                     </div>
                     <span class="font-medium">YouTube</span>
@@ -202,78 +384,76 @@
             </div>
         </div>
     </div>
-    
+
+    <!-- Footer -->
+    <footer class="mt-10 text-center text-gray-500 text-sm">
+        <div class="flex items-center justify-center space-x-2">
+            <img
+                src="https://www.japanfm.fr/wp-content/uploads/2024/03/luffy-chapeau-tenu-scaled.jpg"
+                alt="Profile"
+                class="w-8 h-8 rounded-full object-cover"
+            />
+            <span>
+                Créé par <span class="font-semibold">WebGenius</span>
+            </span>
+        </div>
+    </footer>
+
     <script>
         // Configuration des liens sociaux
         const socialLinks = {
             facebook: "https://www.facebook.com/adrien.sing",
             tiktok: "https://www.tiktok.com/@web.divertissement",
-            snapchat: "https://www.snapchat.com/add/webgenius7910", 
-            whatsapp: "https://wa.me/33612345678", // Format international avec l'indicatif pays (33 pour France)
+            snapchat: "https://www.snapchat.com/add/webgenius7910",
+            whatsapp: "https://wa.me/983562679",
             instagram: "https://www.instagram.com/web_trader01",
-            youtube: "https://www.youtube.com/@WebGenius1?sub_confirmation=1"
+            youtube: "https://www.youtube.com/@WebGenius1?sub_confirmation=1",
         };
 
         // Vérification initiale des liens
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener("DOMContentLoaded", () => {
             for (const [platform, link] of Object.entries(socialLinks)) {
-                if (!link || link.includes('example.com')) {
+                if (!link || link.includes("example.com")) {
                     console.warn(`Attention: Lien ${platform} non configuré ou invalide`);
                 }
             }
         });
-        
+
         function redirectTo(platform) {
             try {
                 const link = socialLinks[platform];
-                if (!link) {
-                    throw new Error('Lien non configuré');
-                }
-                
-                // Vérification basique de l'URL
-                if (!link.startsWith('http://') && !link.startsWith('https://')) {
-                    throw new Error('Format de lien invalide');
-                }
-                
-                // Sécurité supplémentaire pour les liens externes
-                const anchor = document.createElement('a');
-                anchor.href = link;
-                anchor.target = '_blank';
-                anchor.rel = 'noopener noreferrer';
-                anchor.click();
+                if (!link) throw new Error("Lien non configuré");
+                if (!link.startsWith("http://") && !link.startsWith("https://"))
+                    throw new Error("Format de lien invalide");
+                window.open(link, "_blank", "noopener,noreferrer");
             } catch (error) {
-                console.error('Erreur de redirection:', error);
+                console.error("Erreur de redirection:", error);
                 alert(`Impossible de rediriger vers ${platform}: ${error.message}`);
             }
         }
-        
-        function showAllLinks() {
-            document.getElementById('linksModal').classList.remove('hidden');
-        }
-        
-        function closeModal() {
-            document.getElementById('linksModal').classList.add('hidden');
-        }
-        
-        // Fermer la modal en cliquant à l'extérieur
-        // Gestion plus robuste des événements
-        const modal = document.getElementById('linksModal');
-        if (modal) {
-            modal.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeModal();
-                }
-            });
-        }
-    </script>
 
-    <!-- Footer -->
-    <footer class="mt-12 text-center text-gray-600">
-        <div class="flex items-center justify-center space-x-4">
-            <img src="https://www.japanfm.fr/wp-content/uploads/2024/03/luffy-chapeau-tenu-scaled.jpg" 
-                 alt="Logo WebGenius" class="w-10 h-10 rounded-full object-cover">
-            <span>Créé par WebGenius</span>
-        </div>
-    </footer>
+        function showAllLinks() {
+            const modal = document.getElementById("linksModal");
+            modal.classList.remove("hidden");
+            // Focus sur la modale pour accessibilité
+            setTimeout(() => {
+                document.querySelector(".modal-content").focus();
+            }, 100);
+        }
+
+        function closeModal() {
+            document.getElementById("linksModal").classList.add("hidden");
+        }
+
+        // Fermer la modal en cliquant à l'extérieur
+        document.getElementById("linksModal").addEventListener("click", function (e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Fermer la modale avec la touche Echap
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape") closeModal();
+        });
+    </script>
 </body>
 </html>
