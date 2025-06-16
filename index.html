@@ -3,46 +3,108 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="google-site-verification" content="enLYJQOo7BmgnqtoSbjF3_6As8xLNBV3jvHWcMC1qfg" />
-    <title>Mes Réseaux Sociaux</title>
+    <title>Mes Réseaux Sociaux | WebGenius</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+        :root {
+            --primary: #7f00ff;
+            --secondary: #e100ff;
+            --discord: #7289da;
+            --dark: #1a1a2e;
+            --light: #f5f7fa;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
         body {
-            font-family: "Poppins", sans-serif;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             min-height: 100vh;
+            color: var(--light);
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(127, 0, 255, 0.1) 0%, rgba(127, 0, 255, 0) 30%),
+                        radial-gradient(circle at 90% 80%, rgba(225, 0, 255, 0.1) 0%, rgba(225, 0, 255, 0) 30%);
+            z-index: -1;
         }
 
         /* Cartes sociales améliorées */
         .social-card {
-            border: 2px solid transparent;
-            border-image: linear-gradient(45deg, #7f00ff, #e100ff) 1;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.12);
-            transition: transform 0.3s ease, box-shadow 0.3s ease,
-                border-color 0.3s ease;
-            outline-offset: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             animation: fadeSlideUp 0.6s ease forwards;
             cursor: pointer;
         }
+        
+        .social-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            z-index: -1;
+            border-radius: 22px;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .social-card.discord::before {
+            background: linear-gradient(45deg, var(--discord), #4e5d94);
+        }
+        
         .social-card:hover,
         .social-card:focus-within {
-            transform: translateY(-10px) scale(1.05);
-            box-shadow: 0 12px 30px rgba(127, 0, 255, 0.3);
-            border-color: #7f00ff;
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(127, 0, 255, 0.4);
+            background: rgba(255, 255, 255, 0.12);
         }
+        
+        .social-card.discord:hover,
+        .social-card.discord:focus-within {
+            box-shadow: 0 20px 40px rgba(114, 137, 218, 0.4);
+        }
+        
+        .social-card:hover::before {
+            opacity: 1;
+        }
+        
         .social-card:focus-visible {
-            outline: 3px solid #7f00ff;
+            outline: 3px solid var(--primary);
+        }
+        
+        .social-card.discord:focus-visible {
+            outline: 3px solid var(--discord);
         }
 
-        /* Animation d’entrée */
+        /* Animation d'entrée */
         @keyframes fadeSlideUp {
             0% {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
             100% {
                 opacity: 1;
@@ -51,33 +113,118 @@
         }
 
         /* Boutons */
-        button {
-            box-shadow: 0 4px 15px rgba(127, 0, 255, 0.2);
+        .btn {
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 50px;
             font-weight: 600;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            letter-spacing: 0.5px;
         }
-        button:hover {
-            box-shadow: 0 6px 25px rgba(127, 0, 255, 0.4);
+        
+        .btn-primary {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 5px 15px rgba(127, 0, 255, 0.4);
+        }
+        
+        .btn-discord {
+            background: linear-gradient(45deg, var(--discord), #4e5d94);
+            color: white;
+            box-shadow: 0 5px 15px rgba(114, 137, 218, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+        }
+        
+        .btn-primary:hover {
+            box-shadow: 0 8px 25px rgba(127, 0, 255, 0.6);
+        }
+        
+        .btn-discord:hover {
+            box-shadow: 0 8px 25px rgba(114, 137, 218, 0.6);
+        }
+        
+        .btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .btn-discord::after {
+            background: linear-gradient(45deg, #4e5d94, var(--discord));
+        }
+        
+        .btn:hover::after {
+            opacity: 1;
         }
 
         /* Icônes avec effet au survol */
-        .social-card i {
-            transition: transform 0.3s ease, color 0.3s ease;
+        .social-card .icon-container {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
         }
+        
+        .social-card .icon-container::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .social-card:hover .icon-container::before {
+            transform: scale(1);
+        }
+        
+        .social-card i {
+            font-size: 36px;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
         .social-card:hover i {
-            transform: rotate(10deg) scale(1.1);
-            color: #7f00ff !important;
+            transform: scale(1.15);
         }
 
         /* Animation flottante */
         .floating {
-            animation: floating 3s ease-in-out infinite;
+            animation: floating 4s ease-in-out infinite;
         }
+        
         @keyframes floating {
             0% {
                 transform: translateY(0px);
             }
             50% {
-                transform: translateY(-8px);
+                transform: translateY(-12px);
             }
             100% {
                 transform: translateY(0px);
@@ -86,315 +233,338 @@
 
         /* Modale */
         #linksModal {
-            background-color: rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 20, 0.95);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
         }
+        
+        #linksModal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
         #linksModal .modal-content {
-            animation: zoomFadeIn 0.4s ease forwards;
-            outline: none;
+            background: rgba(26, 26, 46, 0.95);
+            border-radius: 25px;
+            padding: 30px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            transform: translateY(30px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            border: 1px solid rgba(127, 0, 255, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
         }
-        @keyframes zoomFadeIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
+        
+        #linksModal.show .modal-content {
+            transform: translateY(0);
+            opacity: 1;
         }
-
+        
         /* Footer */
         footer {
-            font-size: 0.85rem;
-            color: #999;
-            margin-top: 3rem;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 4rem;
+            padding: 20px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
         }
-        footer img {
-            width: 32px;
-            height: 32px;
+        
+        .profile-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .profile-badge img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
+        }
+        
+        /* Particles background */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(127, 0, 255, 0.3);
+            animation: float 15s infinite linear;
+        }
+        
+        .particle.discord {
+            background: rgba(114, 137, 218, 0.3);
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) translateX(1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .social-card {
+                padding: 20px;
+            }
+            
+            .social-card .icon-container {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .social-card i {
+                font-size: 30px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(26, 26, 46, 0.5);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(45deg, var(--secondary), var(--primary));
         }
     </style>
 </head>
-<body class="flex flex-col items-center justify-center py-8 px-2 sm:px-4">
-    <div class="w-full max-w-5xl mx-auto text-center">
+<body class="flex flex-col items-center justify-center py-8 px-4 sm:px-6">
+    <!-- Particles background -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="w-full max-w-6xl mx-auto text-center">
         <!-- Header -->
-        <div class="mb-10">
-            <div
-                class="w-40 h-40 sm:w-48 sm:h-48 mx-auto rounded-full overflow-hidden border-4 border-white shadow-lg mb-4"
-            >
-                <img
-                    src="https://www.japanfm.fr/wp-content/uploads/2024/03/luffy-chapeau-tenu-scaled.jpg"
-                    alt="Profile"
-                    class="w-full h-full object-cover"
-                />
+        <div class="mb-12">
+            <div class="relative inline-block">
+                <div class="w-48 h-48 mx-auto rounded-full overflow-hidden border-4 border-transparent mb-6 relative z-10 floating">
+                    <img src="https://www.japanfm.fr/wp-content/uploads/2024/03/luffy-chapeau-tenu-scaled.jpg" alt="Profile" class="w-full h-full object-cover" />
+                </div>
+                <div class="absolute inset-0 rounded-full bg-gradient-to-r from-purple-500 to-pink-500 blur-xl opacity-70 animate-pulse"></div>
             </div>
-            <h1 class="text-3xl sm:text-4xl font-bold text-gray-800 mb-1">
-                Rejoignez-moi
+            <h1 class="text-4xl sm:text-5xl font-bold text-white mb-3 tracking-tight">
+                Rejoignez-moi sur le web
             </h1>
-            <p
-                class="text-base sm:text-lg text-gray-600 max-w-md mx-auto italic"
-            >
-                Suivez-moi sur mes différents réseaux sociaux pour ne rien manquer
-                !
+            <p class="text-lg sm:text-xl text-gray-300 max-w-2xl mx-auto">
+                Suivez-moi sur mes différents réseaux pour ne rien manquer de mes créations et découvertes !
             </p>
+            <div class="mt-6 flex justify-center gap-3">
+                <div class="w-12 h-1 bg-purple-500 rounded-full"></div>
+                <div class="w-6 h-1 bg-pink-500 rounded-full"></div>
+                <div class="w-3 h-1 bg-blue-500 rounded-full"></div>
+                <div class="w-3 h-1 bg-indigo-500 rounded-full"></div>
+            </div>
         </div>
 
         <!-- Social Links -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
             <!-- Facebook -->
-            <div
-                tabindex="0"
-                aria-label="Facebook"
-                class="social-card bg-white rounded-2xl p-6 shadow-md pulse outline-none"
-                onclick="redirectTo('facebook')"
-            >
-                <div
-                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-blue-100 flex items-center justify-center"
-                >
-                    <i class="fab fa-facebook-f text-blue-600 text-3xl"></i>
+            <div tabindex="0" aria-label="Facebook" class="social-card" onclick="redirectTo('facebook')">
+                <div class="icon-container bg-blue-900/30">
+                    <i class="fab fa-facebook-f text-blue-400"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Facebook</h3>
-                <p class="text-gray-600 mb-5">Suivez mes actualités</p>
-                <button
-                    class="w-full px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-                >
-                    Suivre
-                </button>
+                <h3 class="text-2xl font-semibold text-white mb-3">Facebook</h3>
+                <p class="text-gray-300 mb-6">Actualités et publications</p>
+                <button class="btn btn-primary w-full">Suivre</button>
             </div>
 
             <!-- TikTok -->
-            <div
-                tabindex="0"
-                aria-label="TikTok"
-                class="social-card bg-white rounded-2xl p-6 shadow-md pulse outline-none"
-                onclick="redirectTo('tiktok')"
-            >
-                <div
-                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-pink-100 flex items-center justify-center"
-                >
-                    <i class="fab fa-tiktok text-black text-3xl"></i>
+            <div tabindex="0" aria-label="TikTok" class="social-card" onclick="redirectTo('tiktok')">
+                <div class="icon-container bg-gray-900/30">
+                    <i class="fab fa-tiktok text-white"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">TikTok</h3>
-                <p class="text-gray-600 mb-5">Découvrez mes vidéos</p>
-                <button
-                    class="w-full px-5 py-3 bg-black text-white rounded-lg hover:bg-gray-800 transition"
-                >
-                    Suivre
-                </button>
-            </div>
-
-            <!-- Snapchat -->
-            <div
-                tabindex="0"
-                aria-label="Snapchat"
-                class="social-card bg-white rounded-2xl p-6 shadow-md pulse outline-none"
-                onclick="redirectTo('snapchat')"
-            >
-                <div
-                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-yellow-100 flex items-center justify-center"
-                >
-                    <i class="fab fa-snapchat-ghost text-yellow-500 text-3xl"></i>
-                </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Snapchat</h3>
-                <p class="text-gray-600 mb-5">Mes moments du quotidien</p>
-                <button
-                    class="w-full px-5 py-3 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition"
-                >
-                    Ajouter
-                </button>
+                <h3 class="text-2xl font-semibold text-white mb-3">TikTok</h3>
+                <p class="text-gray-300 mb-6">Vidéos créatives</p>
+                <button class="btn btn-primary w-full">Suivre</button>
             </div>
 
             <!-- Instagram -->
-            <div
-                tabindex="0"
-                aria-label="Instagram"
-                class="social-card bg-white rounded-2xl p-6 shadow-md pulse outline-none"
-                onclick="redirectTo('instagram')"
-            >
-                <div
-                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 flex items-center justify-center"
-                >
-                    <i class="fab fa-instagram text-white text-3xl"></i>
+            <div tabindex="0" aria-label="Instagram" class="social-card" onclick="redirectTo('instagram')">
+                <div class="icon-container" style="background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);">
+                    <i class="fab fa-instagram text-white"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">Instagram</h3>
-                <p class="text-gray-600 mb-5">Voir mes photos</p>
-                <button
-                    class="w-full px-5 py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 text-white rounded-lg hover:opacity-90 transition"
-                >
-                    Suivre
-                </button>
+                <h3 class="text-2xl font-semibold text-white mb-3">Instagram</h3>
+                <p class="text-gray-300 mb-6">Photos et stories</p>
+                <button class="btn btn-primary w-full">Suivre</button>
+            </div>
+
+            <!-- Discord -->
+            <div tabindex="0" aria-label="Discord" class="social-card discord" onclick="redirectTo('discord')">
+                <div class="icon-container" style="background: rgba(114, 137, 218, 0.2);">
+                    <i class="fab fa-discord text-indigo-300"></i>
+                </div>
+                <h3 class="text-2xl font-semibold text-white mb-3">Discord</h3>
+                <p class="text-gray-300 mb-6">Communauté et discussions</p>
+                <button class="btn btn-discord w-full">Rejoindre</button>
+            </div>
+
+            <!-- Snapchat -->
+            <div tabindex="0" aria-label="Snapchat" class="social-card" onclick="redirectTo('snapchat')">
+                <div class="icon-container bg-yellow-900/30">
+                    <i class="fab fa-snapchat-ghost text-yellow-300"></i>
+                </div>
+                <h3 class="text-2xl font-semibold text-white mb-3">Snapchat</h3>
+                <p class="text-gray-300 mb-6">Moments du quotidien</p>
+                <button class="btn btn-primary w-full">Ajouter</button>
             </div>
 
             <!-- WhatsApp -->
-            <div
-                tabindex="0"
-                aria-label="WhatsApp"
-                class="social-card bg-white rounded-2xl p-6 shadow-md pulse outline-none"
-                onclick="redirectTo('whatsapp')"
-            >
-                <div
-                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-green-100 flex items-center justify-center"
-                >
-                    <i class="fab fa-whatsapp text-green-600 text-3xl"></i>
+            <div tabindex="0" aria-label="WhatsApp" class="social-card" onclick="redirectTo('whatsapp')">
+                <div class="icon-container bg-green-900/30">
+                    <i class="fab fa-whatsapp text-green-400"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">WhatsApp</h3>
-                <p class="text-gray-600 mb-5">Contactez-moi directement</p>
-                <button
-                    class="w-full px-5 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition"
-                >
-                    Envoyer un message
-                </button>
+                <h3 class="text-2xl font-semibold text-white mb-3">WhatsApp</h3>
+                <p class="text-gray-300 mb-6">Contact direct</p>
+                <button class="btn btn-primary w-full">Message</button>
             </div>
 
             <!-- YouTube -->
-            <div
-                tabindex="0"
-                aria-label="YouTube"
-                class="social-card bg-white rounded-2xl p-6 shadow-md pulse outline-none"
-                onclick="redirectTo('youtube')"
-            >
-                <div
-                    class="w-16 h-16 mx-auto mb-4 rounded-full bg-red-100 flex items-center justify-center"
-                >
-                    <i class="fab fa-youtube text-red-600 text-3xl"></i>
+            <div tabindex="0" aria-label="YouTube" class="social-card" onclick="redirectTo('youtube')">
+                <div class="icon-container bg-red-900/30">
+                    <i class="fab fa-youtube text-red-500"></i>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">YouTube</h3>
-                <p class="text-gray-600 mb-5">Regardez mes vidéos</p>
-                <button
-                    class="w-full px-5 py-3 bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
-                >
-                    S'abonner
-                </button>
+                <h3 class="text-2xl font-semibold text-white mb-3">YouTube</h3>
+                <p class="text-gray-300 mb-6">Vidéos et tutoriels</p>
+                <button class="btn btn-primary w-full">S'abonner</button>
             </div>
         </div>
 
         <!-- Floating CTA -->
-        <div
-            class="bg-white rounded-2xl shadow-lg p-6 sm:p-8 max-w-xl mx-auto floating"
-        >
-            <h2 class="text-xl sm:text-2xl font-bold text-gray-800 mb-3">
-                Vous ne savez pas par où commencer ?
-            </h2>
-            <p class="text-gray-600 mb-5">
-                Cliquez simplement sur l'une des plateformes ci-dessus pour être
-                redirigé vers mon profil. À très vite !
-            </p>
-            <button
-                onclick="showAllLinks()"
-                class="px-5 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition font-semibold"
-            >
-                Voir tous les liens
-            </button>
+        <div class="bg-gradient-to-r from-purple-900/30 to-pink-900/30 rounded-2xl shadow-lg p-8 max-w-2xl mx-auto floating border border-purple-500/20">
+            <div class="bg-white/5 backdrop-blur-sm rounded-xl p-6">
+                <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">
+                    Rejoignez notre communauté !
+                </h2>
+                <p class="text-gray-300 mb-6 text-lg">
+                    Connectez-vous avec moi sur Discord pour des discussions en direct, des conseils exclusifs et une communauté passionnée !
+                </p>
+                <button onclick="redirectTo('discord')" class="btn btn-discord px-8 py-4">
+                    <i class="fab fa-discord mr-2"></i> Rejoindre Discord
+                </button>
+                <div class="mt-6">
+                    <button onclick="showAllLinks()" class="text-indigo-300 hover:text-white transition-colors">
+                        <i class="fas fa-link mr-1"></i> Voir tous les liens
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- Modal -->
-    <div
-        id="linksModal"
-        class="fixed inset-0 flex items-center justify-center z-50 hidden px-2"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="modalTitle"
-        tabindex="-1"
-    >
-        <div
-            class="modal-content bg-white rounded-2xl p-6 sm:p-8 max-w-md w-full relative shadow-lg outline-none"
-            tabindex="0"
-        >
-            <button
-                onclick="closeModal()"
-                aria-label="Fermer"
-                class="absolute top-4 right-4 text-gray-500 hover:text-gray-700 focus:outline-none"
-            >
-                <i class="fas fa-times text-xl"></i>
+    <div id="linksModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+        <div class="modal-content">
+            <button onclick="closeModal()" aria-label="Fermer" class="absolute top-5 right-5 text-gray-400 hover:text-white transition-colors">
+                <i class="fas fa-times text-2xl"></i>
             </button>
-            <h3
-                id="modalTitle"
-                class="text-xl sm:text-2xl font-bold text-gray-800 mb-5"
-            >
-                Tous mes liens
+            <h3 id="modalTitle" class="text-2xl sm:text-3xl font-bold text-white mb-6 text-center">
+                <i class="fas fa-share-alt mr-2"></i> Tous mes liens
             </h3>
-            <div class="space-y-3">
-                <div
-                    class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
-                    onclick="redirectTo('facebook')"
-                >
-                    <div
-                        class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center mr-4"
-                    >
-                        <i class="fab fa-facebook-f text-blue-600"></i>
+            <div class="space-y-4">
+                <div class="flex items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 transition cursor-pointer" onclick="redirectTo('facebook')">
+                    <div class="w-12 h-12 rounded-xl bg-blue-900/30 flex items-center justify-center mr-4">
+                        <i class="fab fa-facebook-f text-blue-400"></i>
                     </div>
-                    <span class="font-medium">Facebook</span>
+                    <span class="font-medium text-lg text-white">Facebook</span>
+                    <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
                 </div>
-                <div
-                    class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
-                    onclick="redirectTo('tiktok')"
-                >
-                    <div
-                        class="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center mr-4"
-                    >
-                        <i class="fab fa-tiktok text-black"></i>
+                <div class="flex items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 transition cursor-pointer" onclick="redirectTo('tiktok')">
+                    <div class="w-12 h-12 rounded-xl bg-gray-900/30 flex items-center justify-center mr-4">
+                        <i class="fab fa-tiktok text-white"></i>
                     </div>
-                    <span class="font-medium">TikTok</span>
+                    <span class="font-medium text-lg text-white">TikTok</span>
+                    <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
                 </div>
-                <div
-                    class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
-                    onclick="redirectTo('snapchat')"
-                >
-                    <div
-                        class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-4"
-                    >
-                        <i class="fab fa-snapchat-ghost text-yellow-500"></i>
-                    </div>
-                    <span class="font-medium">Snapchat</span>
-                </div>
-                <div
-                    class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
-                    onclick="redirectTo('instagram')"
-                >
-                    <div
-                        class="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 flex items-center justify-center mr-4"
-                    >
+                <div class="flex items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 transition cursor-pointer" onclick="redirectTo('instagram')">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mr-4" style="background: linear-gradient(45deg, #833ab4, #fd1d1d, #fcb045);">
                         <i class="fab fa-instagram text-white"></i>
                     </div>
-                    <span class="font-medium">Instagram</span>
+                    <span class="font-medium text-lg text-white">Instagram</span>
+                    <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
                 </div>
-                <div
-                    class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
-                    onclick="redirectTo('whatsapp')"
-                >
-                    <div
-                        class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4"
-                    >
-                        <i class="fab fa-whatsapp text-green-600"></i>
+                <div class="flex items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 transition cursor-pointer" onclick="redirectTo('discord')">
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center mr-4" style="background: rgba(114, 137, 218, 0.2);">
+                        <i class="fab fa-discord text-indigo-300"></i>
                     </div>
-                    <span class="font-medium">WhatsApp</span>
+                    <span class="font-medium text-lg text-white">Discord</span>
+                    <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
                 </div>
-                <div
-                    class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer"
-                    onclick="redirectTo('youtube')"
-                >
-                    <div
-                        class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-4"
-                    >
-                        <i class="fab fa-youtube text-red-600"></i>
+                <div class="flex items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 transition cursor-pointer" onclick="redirectTo('snapchat')">
+                    <div class="w-12 h-12 rounded-xl bg-yellow-900/30 flex items-center justify-center mr-4">
+                        <i class="fab fa-snapchat-ghost text-yellow-300"></i>
                     </div>
-                    <span class="font-medium">YouTube</span>
+                    <span class="font-medium text-lg text-white">Snapchat</span>
+                    <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
+                </div>
+                <div class="flex items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 transition cursor-pointer" onclick="redirectTo('whatsapp')">
+                    <div class="w-12 h-12 rounded-xl bg-green-900/30 flex items-center justify-center mr-4">
+                        <i class="fab fa-whatsapp text-green-400"></i>
+                    </div>
+                    <span class="font-medium text-lg text-white">WhatsApp</span>
+                    <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
+                </div>
+                <div class="flex items-center p-4 bg-white/5 rounded-xl hover:bg-white/10 transition cursor-pointer" onclick="redirectTo('youtube')">
+                    <div class="w-12 h-12 rounded-xl bg-red-900/30 flex items-center justify-center mr-4">
+                        <i class="fab fa-youtube text-red-500"></i>
+                    </div>
+                    <span class="font-medium text-lg text-white">YouTube</span>
+                    <i class="fas fa-chevron-right ml-auto text-gray-400"></i>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="mt-10 text-center text-gray-500 text-sm">
-        <div class="flex items-center justify-center space-x-2">
-            <img
-                src="https://www.japanfm.fr/wp-content/uploads/2024/03/luffy-chapeau-tenu-scaled.jpg"
-                alt="Profile"
-                class="w-8 h-8 rounded-full object-cover"
-            />
+    <footer class="mt-12 text-center w-full">
+        <div class="profile-badge justify-center">
+            <img src="https://www.japanfm.fr/wp-content/uploads/2024/03/luffy-chapeau-tenu-scaled.jpg" alt="Profile">
             <span>
-                Créé par <span class="font-semibold">WebGenius</span>
+                Créé par <span class="font-semibold text-purple-400">WebGenius</span> • 2024
             </span>
         </div>
     </footer>
@@ -408,10 +578,62 @@
             whatsapp: "https://wa.me/983562679",
             instagram: "https://www.instagram.com/web_trader01",
             youtube: "https://www.youtube.com/@WebGenius1?sub_confirmation=1",
+            discord: "https://discord.gg/example" // Remplacez par votre lien Discord réel
         };
+
+        // Créer des particules d'arrière-plan
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 40;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Taille aléatoire
+                const size = Math.random() * 10 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Position aléatoire
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Couleur
+                const colors = [
+                    'rgba(127, 0, 255, 0.4)',
+                    'rgba(225, 0, 255, 0.4)',
+                    'rgba(100, 200, 255, 0.4)',
+                    'rgba(114, 137, 218, 0.4)'
+                ];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                if (particle.style.background.includes('114, 137, 218')) {
+                    particle.classList.add('discord');
+                }
+                
+                // Animation
+                const duration = Math.random() * 20 + 10;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${Math.random() * 5}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Animation d'entrée séquentielle des cartes
+        function animateCards() {
+            const cards = document.querySelectorAll('.social-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        }
 
         // Vérification initiale des liens
         document.addEventListener("DOMContentLoaded", () => {
+            createParticles();
+            animateCards();
+            
             for (const [platform, link] of Object.entries(socialLinks)) {
                 if (!link || link.includes("example.com")) {
                     console.warn(`Attention: Lien ${platform} non configuré ou invalide`);
@@ -426,6 +648,15 @@
                 if (!link.startsWith("http://") && !link.startsWith("https://"))
                     throw new Error("Format de lien invalide");
                 window.open(link, "_blank", "noopener,noreferrer");
+                
+                // Animation de feedback
+                const card = document.querySelector(`[aria-label="${platform}"]`);
+                if (card) {
+                    card.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        card.style.transform = '';
+                    }, 300);
+                }
             } catch (error) {
                 console.error("Erreur de redirection:", error);
                 alert(`Impossible de rediriger vers ${platform}: ${error.message}`);
@@ -434,7 +665,7 @@
 
         function showAllLinks() {
             const modal = document.getElementById("linksModal");
-            modal.classList.remove("hidden");
+            modal.classList.add("show");
             // Focus sur la modale pour accessibilité
             setTimeout(() => {
                 document.querySelector(".modal-content").focus();
@@ -442,7 +673,8 @@
         }
 
         function closeModal() {
-            document.getElementById("linksModal").classList.add("hidden");
+            const modal = document.getElementById("linksModal");
+            modal.classList.remove("show");
         }
 
         // Fermer la modal en cliquant à l'extérieur
