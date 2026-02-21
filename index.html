@@ -1,314 +1,164 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <title>Mes Réseaux | WebGenius</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-    <style>
-        :root {
-            --primary: #7f00ff;
-            --secondary: #e100ff;
-            --dark-bg: #0f0f13;
-            --card-bg: rgba(255, 255, 255, 0.08);
-            --card-border: rgba(255, 255, 255, 0.1);
-            --color-new: #00ffc6;
-            --color-community: #5865F2;
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--dark-bg);
-            background-image: 
-                radial-gradient(circle at 15% 50%, rgba(127, 0, 255, 0.15), transparent 25%),
-                radial-gradient(circle at 85% 30%, rgba(225, 0, 255, 0.15), transparent 25%);
-            background-attachment: fixed;
-            color: white;
-            min-height: 100vh;
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .particles {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; pointer-events: none;
-        }
-
-        .glass-card {
-            background: var(--card-bg);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 20px;
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            position: relative;
-            overflow: hidden;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        @media (min-width: 768px) {
-            .glass-card:hover {
-                transform: translateY(-5px);
-                background: rgba(255, 255, 255, 0.12);
-                border-color: rgba(255, 255, 255, 0.3);
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            }
-        }
-
-        .glass-card:active {
-            transform: scale(0.98);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .icon-box {
-            width: 50px; height: 50px; border-radius: 14px; display: flex; align-items: center;
-            justify-content: center; font-size: 24px; transition: transform 0.3s ease;
-        }
-
-        .glass-card:hover .icon-box {
-            transform: scale(1.1) rotate(5deg);
-        }
-
-        /* --- NOUVEAU: Styles pour les Badges Logiques --- */
-        .badge-logical {
-            font-size: 10px;
-            padding: 4px 8px;
-            border-radius: 10px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .badge-new {
-            background: var(--color-new);
-            color: var(--dark-bg);
-        }
-        
-        .badge-community {
-            background: var(--color-community);
-            color: white;
-        }
-        
-        .badge-contact {
-            background: #25d366;
-            color: white;
-        }
-        
-        .profile-img {
-            width: 120px; height: 120px; border-radius: 50%; border: 3px solid var(--primary);
-            padding: 3px; background: rgba(255,255,255,0.05); object-fit: cover;
-            box-shadow: 0 0 25px rgba(127, 0, 255, 0.3); transition: box-shadow 0.3s ease;
-        }
-
-        /* Effet Ripple conservé */
-        .ripple {
-            position: absolute; border-radius: 50%; background: rgba(255, 255, 255, 0.2);
-            transform: scale(0); animation: ripple-anim 0.6s linear; pointer-events: none;
-        }
-        @keyframes ripple-anim { to { transform: scale(4); opacity: 0; } }
-        /* Animation d'entrée conservée */
-        .fade-in-up {
-            animation: fadeInUp 0.6s ease-out forwards; opacity: 0; transform: translateY(20px);
-        }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WRP — Gestion VPN (DB)</title>
+  <style>
+    :root{--bg:#0a1020;--panel:#121c35;--line:#2b3d66;--text:#eef3ff;--muted:#a8bbe3;--blue:#1d4ed8;--danger:#ef4444;--ok:#22c55e;--warn:#f59e0b}
+    body{font-family:Arial,sans-serif;margin:0;background:var(--bg);color:var(--text)}
+    .wrap{max-width:1050px;margin:24px auto;padding:0 16px}
+    .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:12px}
+    input,button,select{padding:9px;border-radius:8px;border:1px solid #334a79;background:#0f1730;color:var(--text)}
+    button{cursor:pointer;background:var(--blue);font-weight:600}
+    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+    .vpn{padding:11px;border:1px solid #314975;border-radius:10px;margin:8px 0}
+    .muted{color:var(--muted)}
+    .badge{font-size:12px;padding:2px 8px;border-radius:999px;border:1px solid #3b568f}
+    .ok{color:var(--ok)} .warn{color:var(--warn)} .danger{color:var(--danger)}
+    .head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+    .err{color:#fecaca;background:#7f1d1d33;border:1px solid #7f1d1d;border-radius:8px;padding:8px;margin-top:8px;display:none}
+  </style>
 </head>
-<body class="flex flex-col items-center py-8 px-4 sm:px-6">
-
-    <div class="particles" id="particles"></div>
-
-    <div class="w-full max-w-4xl mx-auto z-10">
-        
-        <div class="text-center mb-10 fade-in-up" style="animation-delay: 0s;">
-            <div class="relative inline-block mb-4">
-                <img src="https://www.japanfm.fr/wp-content/uploads/2024/03/luffy-chapeau-tenu-scaled.jpg" alt="WebGenius" class="profile-img">
-                <div class="absolute bottom-2 right-2 w-5 h-5 bg-green-500 border-4 border-[#0f0f13] rounded-full" title="Actif en ligne"></div>
-            </div>
-            
-            <h1 class="text-3xl sm:text-4xl font-bold mb-2">
-                WebGenius
-            </h1>
-            
-            <p class="text-gray-400 max-w-lg mx-auto text-sm sm:text-base leading-relaxed">
-                Créateur digital & Passionné de Tech. Retrouvez tous mes contenus exclusifs et projets ci-dessous.
-            </p>
-            
-            <div class="flex justify-center gap-4 mt-4 text-2xl">
-                <a href="https://github.com" target="_blank" class="text-gray-500 hover:text-white transition" title="Mon Code Source"><i class="fab fa-github"></i></a>
-                <a href="mailto:contact@webgenius.fr" class="text-gray-500 hover:text-white transition" title="Email de Contact"><i class="fas fa-envelope"></i></a>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full">
-            
-            <div class="glass-card fade-in-up" style="animation-delay: 0.1s;" onclick="createRipple(event); openLink('facebook')">
-                <div class="icon-box bg-blue-600/20 text-blue-500">
-                    <i class="fab fa-facebook-f"></i>
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-semibold text-lg">Facebook</h3>
-                    <p class="text-xs text-gray-400">Actualités & Posts officiels</p>
-                </div>
-                <i class="fas fa-external-link-alt text-gray-600"></i>
-            </div>
-
-            <div class="glass-card fade-in-up" style="animation-delay: 0.15s;" onclick="createRipple(event); openLink('tiktok')">
-                <div class="icon-box bg-gray-700/30 text-white">
-                    <i class="fab fa-tiktok"></i>
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-semibold text-lg">TikTok</h3>
-                    <p class="text-xs text-gray-400">Vidéos courtes</p>
-                </div>
-                <span class="badge-logical badge-new">NOUVEAU</span>
-            </div>
-
-            <div class="glass-card fade-in-up" style="animation-delay: 0.2s;" onclick="createRipple(event); openLink('instagram')">
-                <div class="icon-box" style="background: rgba(225, 48, 108, 0.15); color: #E1306C;">
-                    <i class="fab fa-instagram"></i>
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-semibold text-lg">Instagram</h3>
-                    <p class="text-xs text-gray-400">Photos & Stories</p>
-                </div>
-                <i class="fas fa-external-link-alt text-gray-600"></i>
-            </div>
-
-            <div class="glass-card fade-in-up" style="animation-delay: 0.25s; border-color: rgba(88, 101, 242, 0.3);" onclick="createRipple(event); openLink('discord')">
-                <div class="icon-box" style="background: rgba(88, 101, 242, 0.2); color: #5865F2;">
-                    <i class="fab fa-discord"></i>
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-semibold text-lg">Discord</h3>
-                    <p class="text-xs text-gray-400">Échange et entraide</p>
-                </div>
-                <span class="badge-logical badge-community"><i class="fas fa-users mr-1"></i>Communauté</span>
-            </div>
-
-            <div class="glass-card fade-in-up" style="animation-delay: 0.3s;" onclick="createRipple(event); openLink('snapchat')">
-                <div class="icon-box bg-yellow-400/10 text-yellow-400">
-                    <i class="fab fa-snapchat-ghost"></i>
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-semibold text-lg">Snapchat</h3>
-                    <p class="text-xs text-gray-400">Moments du quotidien</p>
-                </div>
-                <i class="fas fa-external-link-alt text-gray-600"></i>
-            </div>
-
-            <div class="glass-card fade-in-up" style="animation-delay: 0.35s;" onclick="createRipple(event); openLink('whatsapp')">
-                <div class="icon-box bg-green-500/10 text-green-500">
-                    <i class="fab fa-whatsapp"></i>
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-semibold text-lg">WhatsApp</h3>
-                    <p class="text-xs text-gray-400">Contact pour les projets</p>
-                </div>
-                <span class="badge-logical badge-contact"><i class="fas fa-comments mr-1"></i>Direct</span>
-            </div>
-
-             <div class="glass-card fade-in-up md:col-span-2" style="animation-delay: 0.4s;" onclick="createRipple(event); openLink('youtube')">
-                <div class="icon-box bg-red-600/10 text-red-500">
-                    <i class="fab fa-youtube"></i>
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-semibold text-lg">YouTube</h3>
-                    <p class="text-xs text-gray-400">Vidéos longues & Tutoriels</p>
-                </div>
-                <button class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-2 px-4 rounded-full transition shadow-lg shadow-red-600/20">
-                    S'abonner
-                </button>
-            </div>
-        </div>
-
-        <footer class="mt-12 text-center text-gray-500 text-sm">
-            <p>&copy; 2024 WebGenius. Tous droits réservés.</p>
-        </footer>
+<body>
+  <div class="wrap">
+    <div class="head">
+      <h1>WRP — Page web + base SQLite</h1>
+      <small class="muted" id="health">API: vérification...</small>
     </div>
 
-    <script>
-        // --- 1. Configuration des liens (LE COEUR DU SYSTÈME) ---
-        const links = {
-            facebook: "https://www.facebook.com/adrien.sing",
-            tiktok: "https://www.tiktok.com/@web.divertissement",
-            snapchat: "https://www.snapchat.com/add/webgenius7910",
-            whatsapp: "https://wa.me/336983562679", 
-            instagram: "https://www.instagram.com/web_trader01",
-            youtube: "https://www.youtube.com/@WebGenius1?sub_confirmation=1",
-            discord: "https://discord.gg/ton-invitation-ici" 
-        };
+    <div class="card">
+      <h3>Créer un VPN</h3>
+      <div class="row">
+        <input id="name" placeholder="Nom du fichier VPN" />
+        <input id="creator" placeholder="Créateur" value="Admin" />
+        <input id="ttl" type="number" min="1" max="1440" value="30" />
+        <button id="createVpn">Ajouter</button>
+      </div>
+      <div class="err" id="vpnErr"></div>
+    </div>
 
-        // --- 2. Fonction d'ouverture de lien ---
-        function openLink(platform) {
-            const url = links[platform];
-            if (!url || url.includes("ton-invitation-ici")) {
-                alert("Le lien " + platform + " sera bientôt disponible !");
-                return;
-            }
-            setTimeout(() => {
-                window.open(url, '_blank');
-            }, 200);
-        }
+    <div class="card">
+      <h3>VPN enregistrés</h3>
+      <div id="vpns"></div>
+    </div>
 
-        // --- 3. Effet Ripple (Style Android) ---
-        function createRipple(event) {
-            const button = event.currentTarget;
-            const circle = document.createElement("span");
-            const diameter = Math.max(button.clientWidth, button.clientHeight);
-            const radius = diameter / 2;
+    <div class="card">
+      <h3>Ajouter un commentaire</h3>
+      <div class="row">
+        <select id="vpnId"></select>
+        <input id="author" placeholder="Auteur" value="Utilisateur" />
+        <input id="content" placeholder="Commentaire (max 240)" style="min-width:260px" />
+        <button id="addComment">Commenter</button>
+      </div>
+      <div class="err" id="commentErr"></div>
+      <div id="comments" style="margin-top:10px"></div>
+    </div>
+  </div>
 
-            const rect = button.getBoundingClientRect();
-            circle.style.width = circle.style.height = `${diameter}px`;
-            circle.style.left = `${event.clientX - rect.left - radius}px`;
-            circle.style.top = `${event.clientY - rect.top - radius}px`;
-            circle.classList.add("ripple");
+  <script>
+    const $ = (id) => document.getElementById(id);
+    const vpnsEl = $('vpns');
+    const vpnIdEl = $('vpnId');
 
-            const ripple = button.getElementsByClassName("ripple")[0];
-            if (ripple) {
-                ripple.remove();
-            }
+    function showErr(id, msg=''){
+      const el = $(id);
+      if(!msg){el.style.display='none';el.textContent='';return;}
+      el.textContent = msg;
+      el.style.display = 'block';
+    }
 
-            button.appendChild(circle);
-        }
+    function remainMeta(iso){
+      const diff = Math.floor((new Date(iso)-new Date())/1000);
+      if(diff<=0) return {text:'Expiré', cls:'danger'};
+      const h = String(Math.floor(diff/3600)).padStart(2,'0');
+      const m = String(Math.floor((diff%3600)/60)).padStart(2,'0');
+      const s = String(diff%60).padStart(2,'0');
+      const cls = diff<=300?'danger':diff<=900?'warn':'ok';
+      return {text:`${h}:${m}:${s}`, cls};
+    }
 
-        // --- 4. Particules de fond ---
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.getElementById('particles');
-            const particleCount = window.innerWidth < 768 ? 15 : 30;
+    async function api(path, opts={}){
+      const res = await fetch(path, opts);
+      const data = await res.json().catch(()=>({error:'réponse invalide'}));
+      if(!res.ok) throw new Error(data.error || 'erreur API');
+      return data;
+    }
 
-            for(let i=0; i<particleCount; i++) {
-                const p = document.createElement('div');
-                const size = Math.random() * 5 + 2;
-                p.style.width = size + 'px';
-                p.style.height = size + 'px';
-                p.style.background = 'rgba(127, 0, 255, 0.3)';
-                p.style.position = 'absolute';
-                p.style.borderRadius = '50%';
-                p.style.left = Math.random() * 100 + '%';
-                p.style.top = Math.random() * 100 + '%';
-                p.style.animation = `float ${Math.random() * 10 + 10}s infinite linear`;
-                p.style.opacity = Math.random();
-                container.appendChild(p);
-            }
+    async function checkHealth(){
+      try{ await api('/health'); $('health').textContent='API: en ligne'; }
+      catch{ $('health').textContent='API: indisponible'; }
+    }
+
+    async function renderVpns(){
+      showErr('vpnErr');
+      const vpns = await api('/api/vpns');
+      vpnsEl.innerHTML = vpns.map(v=>{
+        const r = remainMeta(v.expires_at);
+        return `<div class="vpn">
+          <b>${v.name}</b> <span class="badge ${r.cls}">${r.cls==='ok'?'Actif':r.cls==='warn'?'Expire bientôt':'Critique/Expiré'}</span><br>
+          <small class="muted">Créateur: ${v.creator}</small><br>
+          <small class="muted">Temps restant: <span data-exp="${v.expires_at}" class="${r.cls}">${r.text}</span></small>
+        </div>`;
+      }).join('') || '<small class="muted">Aucun VPN</small>';
+
+      vpnIdEl.innerHTML = vpns.map(v=>`<option value="${v.id}">#${v.id} - ${v.name}</option>`).join('');
+      if(vpns.length) await loadComments(vpnIdEl.value);
+      else $('comments').innerHTML = '<small class="muted">Pas de commentaire</small>';
+    }
+
+    async function loadComments(vpnId){
+      showErr('commentErr');
+      if(!vpnId){ $('comments').innerHTML=''; return; }
+      const rows = await api(`/api/comments?vpn_id=${vpnId}`);
+      $('comments').innerHTML = rows.map(c=>`<div class="vpn"><b>${c.author}</b> · <small class="muted">${c.created_at}</small><br>${c.content}</div>`).join('') || '<small class="muted">Pas de commentaire</small>';
+    }
+
+    $('createVpn').onclick = async () => {
+      try{
+        await api('/api/vpns', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({
+            name:$('name').value.trim(),
+            creator:$('creator').value.trim(),
+            ttl_minutes:Number($('ttl').value||30)
+          })
         });
+        $('name').value='';
+        await renderVpns();
+      }catch(e){ showErr('vpnErr', e.message); }
+    };
 
-        const styleSheet = document.createElement("style");
-        styleSheet.innerText = `
-            @keyframes float {
-                0% { transform: translateY(0) rotate(0deg); opacity: 0; }
-                50% { opacity: 0.8; }
-                100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-            }
-        `;
-        document.head.appendChild(styleSheet);
-    </script>
+    $('addComment').onclick = async () => {
+      try{
+        await api('/api/comments', {
+          method:'POST',
+          headers:{'Content-Type':'application/json'},
+          body:JSON.stringify({
+            vpn_id:Number(vpnIdEl.value),
+            author:$('author').value.trim(),
+            content:$('content').value.trim()
+          })
+        });
+        $('content').value='';
+        await loadComments(vpnIdEl.value);
+      }catch(e){ showErr('commentErr', e.message); }
+    };
+
+    vpnIdEl.onchange = () => loadComments(vpnIdEl.value);
+
+    setInterval(() => {
+      document.querySelectorAll('[data-exp]').forEach((el)=>{
+        const r = remainMeta(el.getAttribute('data-exp'));
+        el.textContent = r.text;
+        el.classList.remove('ok','warn','danger');
+        el.classList.add(r.cls);
+      });
+    }, 1000);
+
+    checkHealth();
+    renderVpns().catch(e=>showErr('vpnErr', e.message));
+  </script>
 </body>
 </html>
-
